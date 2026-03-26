@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/* ─── Theme Variables ──────────────────────────────────────────────────────── */
+:root {
+  --bg: #0a0a0a;
+  --bg-secondary: #111111;
+  --accent: #ff4d6d;
+  --accent-glow: rgba(255, 77, 109, 0.3);
+  --highlight: #ffb3c1;
+  --text: #fff5f5;
+  --text-muted: rgba(255, 245, 245, 0.5);
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --nav-bg: rgba(10, 10, 10, 0.7);
+}
+
+html.pastel {
+  --bg: #fff0f5;
+  --bg-secondary: #fce4ec;
+  --accent: #e91e8c;
+  --accent-glow: rgba(233, 30, 140, 0.2);
+  --highlight: #c9b8ff;
+  --text: #2d1b2e;
+  --text-muted: rgba(45, 27, 46, 0.5);
+  --card-bg: rgba(255, 255, 255, 0.6);
+  --card-border: rgba(233, 30, 140, 0.15);
+  --nav-bg: rgba(255, 240, 245, 0.75);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles this */
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+/* ─── Custom Cursor ────────────────────────────────────────────────────────── */
+* {
+  cursor: none;
+}
+
+#cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: difference;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  opacity: 0.6;
+}
+
+/* ─── Keyframes ────────────────────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+  50% { box-shadow: 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* ─── Utilities ────────────────────────────────────────────────────────────── */
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--text-muted); }
+.bg-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glow-accent {
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+
+/* ─── Range Input ──────────────────────────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--card-border);
+}
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--card-border);
+}
+
+/* Filled portion (webkit only — via accent-color fallback on others) */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--accent) 0%,
+    var(--accent) calc(var(--range-pct, 0%) ),
+    var(--card-border) calc(var(--range-pct, 0%)),
+    var(--card-border) 100%
+  );
+}
+
+/* Thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: -4px;
+  box-shadow: 0 0 6px var(--accent-glow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.25);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+input[type="range"]:hover::-moz-range-thumb {
+  transform: scale(1.25);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+input[type="range"]:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ─── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+/* ─── Selection ────────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
