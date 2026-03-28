@@ -154,6 +154,7 @@ function NavCard({
       style={{ opacity: 0 }}
     >
       <Link
+        data-cursor
         href={href}
         className="block w-64 rounded-2xl p-8 text-left"
         style={{

@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useTheme } from './ThemeProvider';
-import { HomeIcon, HeartIcon, MusicalNoteIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline';
+import {  SunIcon, MoonIcon } from '@heroicons/react/24/outline';
+import { HeartIcon, HomeIcon, MusicalNoteIcon } from '@heroicons/react/24/solid';
 
 const links = [
   { href: '/', label: 'Home', icon: HomeIcon },
